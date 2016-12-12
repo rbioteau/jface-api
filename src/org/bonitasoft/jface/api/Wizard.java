@@ -16,6 +16,9 @@ package org.bonitasoft.jface.api;
 
 import java.util.stream.Stream;
 
+import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.swt.widgets.Display;
+
 public class Wizard {
 
     public static Wizard newWizard(String windowTitle, FinishHandler finishHandler, WizardPage... pages) {
@@ -45,5 +48,9 @@ public class Wizard {
         });
         wizard.setWindowTitle(windowTitle);
         return wizard;
+    }
+
+    public int open() {
+        return new WizardDialog(Display.getDefault().getActiveShell(), asWizard()).open();
     }
 }

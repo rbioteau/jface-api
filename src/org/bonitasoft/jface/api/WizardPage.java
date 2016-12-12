@@ -38,7 +38,7 @@ public class WizardPage {
     }
 
     public org.eclipse.jface.wizard.WizardPage asPage() {
-        final org.eclipse.jface.wizard.WizardPage page = new org.eclipse.jface.wizard.WizardPage(title, title, null) {
+        final org.eclipse.jface.wizard.WizardPage page = new org.eclipse.jface.wizard.WizardPage(title) {
 
             @Override
             public void createControl(Composite parent) {
@@ -56,6 +56,7 @@ public class WizardPage {
                 super.dispose();
             }
         };
+        page.setTitle(title);
         page.setDescription(description);
         return page;
     }
