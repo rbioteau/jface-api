@@ -16,27 +16,28 @@ package org.bonitasoft.jface.api;
 
 import java.util.stream.Stream;
 
+import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Display;
 
-public class Wizard {
+public class WizardBuilder {
 
-    public static Wizard newWizard(String windowTitle, FinishHandler finishHandler, WizardPage... pages) {
-        return new Wizard(windowTitle, finishHandler, pages);
+    public static WizardBuilder newWizard(String windowTitle, FinishHandler finishHandler, WizardPageBuilder... pages) {
+        return new WizardBuilder(windowTitle, finishHandler, pages);
     }
 
     private final String windowTitle;
-    private final WizardPage[] pages;
+    private final WizardPageBuilder[] pages;
     private final FinishHandler finishHandler;
 
-    private Wizard(String windowTitle, FinishHandler finishHandler, WizardPage... pages) {
+    private WizardBuilder(String windowTitle, FinishHandler finishHandler, WizardPageBuilder... pages) {
         this.windowTitle = windowTitle;
         this.pages = pages;
         this.finishHandler = finishHandler;
     }
 
-    public org.eclipse.jface.wizard.Wizard asWizard() {
-        final org.eclipse.jface.wizard.Wizard wizard = new org.eclipse.jface.wizard.Wizard() {
+    public Wizard asWizard() {
+        final Wizard wizard = new Wizard() {
 
             @Override
             public boolean performFinish() {

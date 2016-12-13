@@ -15,12 +15,13 @@
 package org.bonitasoft.jface.api;
 
 import org.eclipse.core.databinding.DataBindingContext;
+import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.widgets.Composite;
 
-public class WizardPage {
+public class WizardPageBuilder {
 
-    public static WizardPage newPage(final String title, final String description, Object model, final ControlSupplier controlSupplier) {
-        return new WizardPage(title, description,model, controlSupplier);
+    public static WizardPageBuilder newPage(final String title, final String description, Object model, final ControlSupplier controlSupplier) {
+        return new WizardPageBuilder(title, description,model, controlSupplier);
     }
 
     private final String title;
@@ -29,7 +30,7 @@ public class WizardPage {
     private final DataBindingContext ctx;
     private final Object model;
 
-    private WizardPage(String title, String description, Object model, final ControlSupplier controlSupplier) {
+    private WizardPageBuilder(String title, String description, Object model, final ControlSupplier controlSupplier) {
         this.title = title;
         this.description = description;
         this.controlSupplier = controlSupplier;
@@ -37,8 +38,8 @@ public class WizardPage {
         ctx = new DataBindingContext();
     }
 
-    public org.eclipse.jface.wizard.WizardPage asPage() {
-        final org.eclipse.jface.wizard.WizardPage page = new org.eclipse.jface.wizard.WizardPage(title) {
+    public WizardPage asPage() {
+        final WizardPage page = new WizardPage(title) {
 
             @Override
             public void createControl(Composite parent) {

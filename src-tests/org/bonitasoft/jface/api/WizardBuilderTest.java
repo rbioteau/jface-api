@@ -1,7 +1,7 @@
 package org.bonitasoft.jface.api;
 
-import static org.bonitasoft.jface.api.Wizard.newWizard;
-import static org.bonitasoft.jface.api.WizardPage.newPage;
+import static org.bonitasoft.jface.api.WizardBuilder.newWizard;
+import static org.bonitasoft.jface.api.WizardPageBuilder.newPage;
 
 import org.eclipse.core.databinding.UpdateValueStrategy;
 import org.eclipse.core.databinding.beans.PojoObservables;
@@ -16,7 +16,7 @@ import org.eclipse.swt.widgets.Display;
 import org.junit.Test;
 
 
-public class WizardTest {
+public class WizardBuilderTest {
 
     class Person {
 
