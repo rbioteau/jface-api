@@ -2,8 +2,9 @@ package org.bonitasoft.jface.api;
 
 import static org.bonitasoft.jface.api.WizardBuilder.newWizard;
 import static org.bonitasoft.jface.api.WizardPageBuilder.newPage;
+import static org.bonitasoft.jface.api.databinding.UpdateStrategyFactory.updateValueStrategy;
 
-import org.eclipse.core.databinding.UpdateValueStrategy;
+import org.bonitasoft.jface.api.widget.TextWithLabel;
 import org.eclipse.core.databinding.beans.PojoObservables;
 import org.eclipse.core.databinding.observable.Realm;
 import org.eclipse.core.databinding.validation.ValidationStatus;
@@ -53,14 +54,18 @@ public class WizardBuilderTest {
                 final Composite container = new Composite(parent, SWT.NONE);
                 container.setLayout(GridLayoutFactory.fillDefaults().numColumns(1).margins(15, 10).create());
 
-                final TextWithLabel nameControl = new TextWithLabel(container, SWT.BORDER).withLabel("Name");
+                final TextWithLabel nameControl = new TextWithLabel(container, SWT.TOP).withLabel("Name");
                 nameControl.setLayoutData(GridDataFactory.fillDefaults().grab(true, false).create());
-                final UpdateValueStrategy updateValueStrategy = new UpdateValueStrategy();
-                updateValueStrategy.setAfterConvertValidator(value -> {
-                    return value == null || ((String) value).isEmpty() ? ValidationStatus.error("Name is mandatory") : ValidationStatus.ok();
-                });
 
-                nameControl.bindText(ctx, PojoObservables.observeValue(model, "name"), updateValueStrategy, null);
+                nameControl.bindText(ctx, PojoObservables.observeValue(model, "name"), updateValueStrategy().withValidator(value -> {
+                    return value == null || ((String) value).isEmpty() ? ValidationStatus.error("Name is mandatory") : ValidationStatus.ok();
+                }).create(), null);
+
+                final TextWithLabel title = new TextWithLabel(container, SWT.TOP).withLabel("Title").withMessage("Example: Mr, Ms..");
+                title.setLayoutData(GridDataFactory.fillDefaults().grab(true, false).create());
+                title.bindText(ctx, PojoObservables.observeValue(model, "name"), updateValueStrategy().withValidator(value -> {
+                    return value == null || ((String) value).isEmpty() ? ValidationStatus.warning("Title is missing") : ValidationStatus.ok();
+                }).create(), null);
 
                 return container;
             })).open();

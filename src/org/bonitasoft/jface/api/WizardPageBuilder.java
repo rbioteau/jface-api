@@ -14,6 +14,7 @@
  */
 package org.bonitasoft.jface.api;
 
+import org.bonitasoft.jface.api.databinding.NoMessageWizardPageSupport;
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.widgets.Composite;
